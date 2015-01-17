@@ -139,6 +139,7 @@ ggplot(data_perday_filledin, aes(x=steps)) +
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                               colour = '#0A224E'))
 ```
+
 The number of 10-15K steps days increase noticeably.
 
 Mean of total steps per day

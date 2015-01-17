@@ -170,6 +170,7 @@ ggplot(data_perday_filledin, aes(x=steps)) +
 ```
 
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+
 The number of 10-15K steps days increase noticeably.
 
 Mean of total steps per day
