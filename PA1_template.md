@@ -1,3 +1,7 @@
+##Reproducible Research - Peer Assessment 1
+
+by Sami Kallinen
+
 ###Loading and preprocessing the data
 
 ```r
@@ -18,7 +22,7 @@ downloadDataFromInternet <- function(url, file) {
 }
 
 # set data sources and working directory
-# url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip" 
+url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip" 
 file <- "data.zip"
 wd <- "~/Dropbox/Coursera/Reproducible Research/Assignments/RepData_PeerAssessment1"
 datasource <- "activity.csv"
@@ -36,7 +40,7 @@ For this part of the assignment, we are ignoring the missing values in the datas
 
 ```r
 data_perday <- group_by(rawdata, date) %>%
-         summarise(steps=sum(steps, na.rm = T)) %>%
+         summarise(steps=sum(steps)) %>%
                  mutate(date=ymd(date))
 
 
@@ -45,6 +49,7 @@ ggplot(data_perday, aes(x=steps)) +
                        colour="#038181",
                 fill="#FF6E6E"
                 ) +
+                labs(title="Histogram of total number of steps each day")+
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                              colour = '#0A224E'))
 ```
@@ -55,21 +60,21 @@ ggplot(data_perday, aes(x=steps)) +
 
 
 ```r
-mean(data_perday$steps)
+mean(data_perday$steps, na.rm = TRUE)
 ```
 
 ```
-## [1] 9354.23
+## [1] 10766.19
 ```
 
 
 
 ```r
-median(data_perday$steps)
+median(data_perday$steps, na.rm = TRUE)
 ```
 
 ```
-## [1] 10395
+## [1] 10765
 ```
 
 ###What is the average daily activity pattern?
@@ -86,11 +91,10 @@ data_24h <- group_by(rawdata, interval) %>%
         mutate(time=as.POSIXct(time, format = "%H:%M"))
 
 ggplot(data_24h, aes(time, steps)) +
-        geom_line(stat="identity", 
-                     colour="#038181",
+        geom_line(colour="#038181",
                        fill="#FF6E6E",
-                       binwidth=0.5, 
                        lwd=.3) + 
+                        labs(title="Average daily activity pattern")+
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                               colour = '#0A224E')) +
         scale_x_datetime(labels = date_format("%H:%M"))
@@ -160,12 +164,13 @@ ggplot(data_perday_filledin, aes(x=steps)) +
                        colour="#038181",
                 fill="#FF6E6E"
                 ) +
+                labs(title="Histogram /w NAs replaced with averages") +
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                               colour = '#0A224E'))
 ```
 
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
-
+The number of 10-15K steps days increase noticeably.
 
 Mean of total steps per day
 
@@ -210,9 +215,14 @@ ggplot(data_filledin, aes(interval, steps)) +
                     colour="black",
                     binwidth=0.5, 
                     lwd=.3) +
-        facet_grid(weekday ~ .) + 
+        facet_grid(weekday ~ .) +
+        labs(title="Average daily activity pattern weekdays and weekends") +
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                               colour = '#0A224E'))
 ```
 
 ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+
+There is a clear difference in the plots, which implies that the routines are different on weekends and weekdays perhaps due to work or school.
+
+Thank you for reading this far :)
