@@ -4,20 +4,10 @@
 # colorscheme
 # http://paletton.com/#uid=3000u0kmJCgcCQQidJnrtx6vjqU
 
-# install dplyr library
-if(!require(dplyr)){install.packages("dplyr")}
+# libraries
 library(dplyr)
-
-# install scales library
-if(!require(scales)){install.packages("scales")}
 library(scales)
-
-# install ggplot2 library
-if(!require(ggplot2)){install.packages("ggplot2")}
 library(ggplot2)
-
-# install lubridate library
-if(!require(lubridate)){install.packages("lubridate")}
 library(lubridate)
 
 # load helper functions
@@ -50,12 +40,11 @@ data_perday <- group_by(rawdata, date) %>%
                  mutate(date=ymd(date))
 
 
-ggplot(data_perday, aes(date, steps)) +
-        geom_histogram(stat="identity", 
-                colour="#038181",
-                fill="#FF6E6E",
-                binwidth=.5, 
-                lwd=.3) + 
+ggplot(data_perday, aes(x=steps)) +
+        geom_histogram(binwidth=5000,
+                       colour="#038181",
+                fill="#FF6E6E"
+                ) +
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                              colour = '#0A224E'))
 ```
@@ -166,33 +155,17 @@ data_perday_filledin <- group_by(data_filledin, date) %>%
         summarise(steps=sum(steps, na.rm = T)) %>%
         mutate(date=ymd(date))
 
-ggplot(data_perday_filledin, aes(date, steps)) +
-        geom_histogram(stat="identity", 
-                       colour="#444444",
-                       fill="#cccccc",
-                       binwidth=.5, 
-                       lwd=.3) + 
+ggplot(data_perday_filledin, aes(x=steps)) +
+        geom_histogram(binwidth=5000,
+                       colour="#038181",
+                fill="#FF6E6E"
+                ) +
         theme(panel.background = element_rect(fill = '#D9FA97', 
                                               colour = '#0A224E'))
 ```
 
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
 
-Adding a line to explore how these values differ from the ones with NAs not filled in.
-
-```r
-ggplot(data_perday_filledin, aes(date, steps)) +
-        geom_histogram(stat="identity", 
-                       colour="#444444",
-                       fill="#cccccc",
-                       binwidth=.5, 
-                       lwd=.3) + 
-        geom_line(data=data_perday, colour="red") +
-        theme(panel.background = element_rect(fill = '#D9FA97', 
-                                              colour = '#0A224E'))
-```
-
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
 
 Mean of total steps per day
 
@@ -242,4 +215,4 @@ ggplot(data_filledin, aes(interval, steps)) +
                                               colour = '#0A224E'))
 ```
 
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
