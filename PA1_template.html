@@ -250,8 +250,7 @@ rawdata &lt;- tbl_df(read.csv(datasource))
 ggplot(data_perday, aes(x=steps)) +
         geom_histogram(binwidth=5000,
                        colour=&quot;#038181&quot;,
-                fill=&quot;#FF6E6E&quot;
-                ) +
+                fill=&quot;#FF6E6E&quot;) +
                 labs(title=&quot;Histogram of total number of steps each day&quot;)+
         theme(panel.background = element_rect(fill = &#39;#D9FA97&#39;, 
                                              colour = &#39;#0A224E&#39;))
@@ -291,7 +290,7 @@ ggplot(data_24h, aes(time, steps)) +
         geom_line(colour=&quot;#038181&quot;,
                        fill=&quot;#FF6E6E&quot;,
                        lwd=.3) + 
-                        labs(title=&quot;Average daily activity pattern&quot;)+
+                        labs(title=&quot;Average daily activity pattern&quot;) +
         theme(panel.background = element_rect(fill = &#39;#D9FA97&#39;, 
                                               colour = &#39;#0A224E&#39;)) +
         scale_x_datetime(labels = date_format(&quot;%H:%M&quot;))
@@ -386,7 +385,7 @@ ggplot(data_perday_filledin, aes(x=steps)) +
 <pre><code>## [1] 10766.19
 </code></pre>
 
-<p>The median and mean are now the same. These differ from the mean and median  up.</p>
+<p>The median and mean are now the same.</p>
 
 <p>###Are there differences in activity patterns between weekdays and weekends?
 1. Creating a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</p>
